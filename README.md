@@ -2,6 +2,8 @@
 
 A production-grade, local LLM-powered Retrieval-Augmented Generation (RAG) pipeline and interactive analytics dashboard to ingest, process, and analyze UN Human Development Reports. Built using modular Python components, local vector stores, and an automated evaluation framework.
 
+![System Architecture](system_architecture.png)
+
 ---
 
 ## 🚀 Key Features
@@ -20,23 +22,37 @@ A production-grade, local LLM-powered Retrieval-Augmented Generation (RAG) pipel
 
 ```
 ai-un-development-intelligence/
-├── src/
+├── src/                        # Backend RAG components
 │   ├── __init__.py
-│   ├── pdf_processor.py   # PDF text extraction, cleaning, chapter boundaries detection, page scanner
-│   ├── vector_store.py    # Local embedding generator and Cosine Similarity search engine
-│   ├── llm_client.py      # Native Ollama API caller, custom system prompts, and JSON schemas
-│   └── evaluator.py       # LLM-as-a-Judge evaluator and multi-model benchmarking suite
-├── results/               # Cached extraction results for instantaneous dashboard loading
-│   ├── summary.json       # Holds page narrative mapping and theme frequencies
-│   ├── llama3_2_results.json
+│   ├── pdf_processor.py
+│   ├── vector_store.py
+│   ├── llm_client.py
+│   └── evaluator.py
+├── results/                    # Cached RAG database & data files
+│   ├── vector_db.json          # Persistent vector index
+│   ├── summary.json            # Overall benchmarking results
+│   ├── llama3_2_results.json   # Model-specific outputs
 │   ├── qwen2_5_3b_results.json
-│   └── phi3_mini_results.json
-├── app.py                 # Streamlit static analysis dashboard application
-├── run_pipeline.ipynb     # Demonstration notebook walking through RAG execution
-├── requirements.txt       # Python package dependencies
-└── README.md              # Project documentation and portfolio highlights
+│   ├── phi3_mini_results.json
+│   └── plots/                  # Generated figures
+│       ├── theme_frequencies.png
+│       ├── theme_timeline.png
+│       ├── model_benchmark_quality.png
+│       ├── model_benchmark_efficiency.png
+│       ├── indicator_comparison.png
+│       ├── development_radar_profile.png
+│       ├── hdi_historical_trend.png
+│       ├── model_latency_breakdown.png
+│       ├── qualitative_extraction_depth.png
+│       └── model_verbosity_comparison.png
+├── app.py                      # Interactive Streamlit dashboard
+├── preprocess_country.py       # Pre-processing ingestion runner
+├── generate_plots.py           # Static figure generator script
+├── run_pipeline.ipynb          # The main Jupyter Notebook submission
+├── requirements.txt            # Python library dependencies
+├── README.md                   # Setup and execution documentation
+└── .gitignore                  # Git exclusions file
 ```
-
 ---
 
 ## ⚙️ Setup and Installation
@@ -76,7 +92,13 @@ streamlit run app.py
 ```
 *Note: The dashboard is configured to load results directly from the `results/` cache, making it extremely fast, lightweight, and perfect for free cloud hosting (e.g., Streamlit Community Cloud).*
 
-### 3. Run the Demonstration Notebook
+### 3. Generate Static Report Plots (Data Storytelling)
+To regenerate the 10 publication-ready static figures (saved under `results/plots/`) comparing model metrics, thematic trends, and radar profiles:
+```bash
+python3 generate_plots.py
+```
+
+### 4. Run the Demonstration Notebook
 To step through the RAG code and evaluation logic:
 ```bash
 jupyter notebook run_pipeline.ipynb

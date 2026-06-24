@@ -11,61 +11,6 @@
         "climate": 12,
         "employment": 317
     },
-    "models_tested": [
-        "llama3.2",
-        "qwen2.5:3b",
-        "phi3:mini"
-    ],
-    "benchmark_summary": {
-        "llama3.2": {
-            "faithfulness": 5,
-            "relevance": 4,
-            "justification": "The answer strictly adheres to the context, providing a clear and concise overview of the human development paradigm. However, it could benefit from more specific examples or data to support its claims, which might make it slightly less relevant.",
-            "total_latency": 311.88803696632385,
-            "verbosity": 1371,
-            "indicators": {
-                "hdi_value": 0.804,
-                "hdi_rank": 62,
-                "life_expectancy": 74.1,
-                "expected_schooling": null,
-                "mean_schooling": null,
-                "gni_per_capita": null,
-                "population": null
-            }
-        },
-        "qwen2.5:3b": {
-            "faithfulness": 5,
-            "relevance": 4,
-            "justification": "Extracted numerical values were fully factual, but the key results output omitted minor qualitative challenges relating to minor displaced groups, resulting in a slightly lower relevance score.",
-            "total_latency": 124.2,
-            "verbosity": 492,
-            "indicators": {
-                "hdi_value": 0.803,
-                "hdi_rank": 66,
-                "life_expectancy": 74.4,
-                "expected_schooling": 12.3,
-                "mean_schooling": 8.7,
-                "gni_per_capita": 7280.0,
-                "population": 3.85
-            }
-        },
-        "phi3:mini": {
-            "faithfulness": 4,
-            "relevance": 4,
-            "justification": "The model answered efficiently but introduced minor rounding discrepancies in the GNI per capita statistic and showed slight wordiness in chapters summaries.",
-            "total_latency": 98.4,
-            "verbosity": 420,
-            "indicators": {
-                "hdi_value": 0.802,
-                "hdi_rank": 66,
-                "life_expectancy": 74.2,
-                "expected_schooling": 12.5,
-                "mean_schooling": 8.6,
-                "gni_per_capita": 7350.0,
-                "population": 3.8
-            }
-        }
-    },
     "theme_by_page": [
         {
             "page": 2,
@@ -2662,5 +2607,60 @@
             "theme": "economy",
             "presence": 1
         }
-    ]
+    ],
+    "models_tested": [
+        "llama3.2",
+        "qwen2.5:3b",
+        "phi3:mini"
+    ],
+    "benchmark_summary": {
+        "llama3.2": {
+            "faithfulness": 5,
+            "relevance": 4,
+            "justification": "The answer strictly adheres to the context, providing a clear and concise overview of the human development paradigm. However, it could benefit from more specific examples or data to support its claims, which might make it slightly less relevant.",
+            "total_latency": 311.88803696632385,
+            "verbosity": 1371,
+            "indicators": {
+                "hdi_value": 0.804,
+                "hdi_rank": 62,
+                "life_expectancy": 74.1,
+                "expected_schooling": null,
+                "mean_schooling": null,
+                "gni_per_capita": null,
+                "population": null
+            }
+        },
+        "qwen2.5:3b": {
+            "faithfulness": 5,
+            "relevance": 4,
+            "justification": "Extracted numerical values were fully factual, but the key results output omitted minor qualitative challenges relating to minor displaced groups, resulting in a slightly lower relevance score.",
+            "total_latency": 124.2,
+            "verbosity": 492,
+            "indicators": {
+                "hdi_value": 0.803,
+                "hdi_rank": 66,
+                "life_expectancy": 74.4,
+                "expected_schooling": 12.3,
+                "mean_schooling": 8.7,
+                "gni_per_capita": 7280.0,
+                "population": 3.85
+            }
+        },
+        "phi3:mini": {
+            "faithfulness": 4,
+            "relevance": 4,
+            "justification": "The model answered efficiently but introduced minor rounding discrepancies in the GNI per capita statistic and showed slight wordiness in chapters summaries.",
+            "total_latency": 98.4,
+            "verbosity": 420,
+            "indicators": {
+                "hdi_value": 0.802,
+                "hdi_rank": 66,
+                "life_expectancy": 74.2,
+                "expected_schooling": 12.5,
+                "mean_schooling": 8.6,
+                "gni_per_capita": 7350.0,
+                "population": 3.8
+            }
+        }
+    }
 }

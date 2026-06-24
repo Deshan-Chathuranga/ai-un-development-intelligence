@@ -1,7 +1,7 @@
 import json
 import os
 import time
-from src.pdf_processor import extract_raw_text, clean_text, create_chunks, extract_chapter_texts
+from src.pdf_processor import extract_raw_text, clean_text, create_chunks, extract_chapter_texts, scan_themes_by_page
 from src.vector_store import LocalVectorStore
 from src.llm_client import count_thematic_frequencies
 from src.evaluator import run_model_benchmark
@@ -49,6 +49,11 @@ def main():
     theme_counts = count_thematic_frequencies(cleaned_text)
     print(f"Thematic Counts: {theme_counts}")
     
+    # 4.5 Scan Themes by Page
+    print("Step 5.5: Scanning themes page by page...")
+    theme_by_page = scan_themes_by_page(pdf_path)
+    print(f"Scanned {len(theme_by_page)} theme-page presence records.")
+    
     # 5. Run benchmarks for the three models
     models = ["llama3.2", "qwen2.5:3b", "phi3:mini"]
     benchmarks = {}
@@ -82,6 +87,7 @@ def main():
         "year": 2007,
         "report_title": "Social Inclusion in Bosnia and Herzegovina",
         "theme_counts": theme_counts,
+        "theme_by_page": theme_by_page,
         "models_tested": models,
         "benchmark_summary": {
             model: {
