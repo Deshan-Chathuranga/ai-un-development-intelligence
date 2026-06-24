@@ -85,13 +85,13 @@ def count_thematic_frequencies(text):
     This guarantees reproducible distribution plots in the dashboard.
     """
     theme_stems = {
-        "education": r'\b(school|educat|teach|learn|literac|train|student|class|enroll)\b',
-        "health": r'\b(health|medic|doctor|hospital|diseas|illness|clinic|vaccin|mortality|expectancy)\b',
-        "inequality": r'\b(inequal|povert|poor|disadvantag|gap|incom|distribut|wealth|exclu)\b',
-        "economy": r'\b(econom|gdp|gni|financ|market|trade|industr|growth|fiscal|tax|recession)\b',
-        "gender": r'\b(gender|women|men|female|male|equal|girl|boy|bias|discrim)\b',
-        "climate": r'\b(climate|environ|carbon|emiss|warm|green|pollut|energy|sus|natur|ecology)\b',
-        "employment": r'\b(employ|job|work|labor|labour|unemploy|career|wage|salar|occupation)\b'
+        "education": r'\b(school\w*|educat\w*|teach\w*|learn\w*|literac\w*|train\w*|student\w*|class\w*|enroll\w*)\b',
+        "health": r'\b(health\w*|medic\w*|doctor\w*|hospital\w*|diseas\w*|illness\w*|clinic\w*|vaccin\w*|mortality|expectancy)\b',
+        "inequality": r'\b(inequal\w*|povert\w*|poor\w*|disadvantag\w*|gap\w*|incom\w*|distribut\w*|wealth\w*|exclu\w*)\b',
+        "economy": r'\b(econom\w*|gdp|gni|financ\w*|market\w*|trade\w*|industr\w*|growth|fiscal|tax\w*|recession\w*)\b',
+        "gender": r'\b(gender\w*|women|men|female\w*|male|equal\w*|girl\w*|boy\w*|bias\w*|discrim\w*)\b',
+        "climate": r'\b(climate\w*|environ\w*|carbon|emiss\w*|warm\w*|green\w*|pollut\w*|energy|sustain\w*|natur\w*|ecology)\b',
+        "employment": r'\b(employ\w*|job\w*|work\w*|labor\w*|labour\w*|unemploy\w*|career\w*|wage\w*|salar\w*|occupation\w*)\b'
     }
     
     counts = {}
