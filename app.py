@@ -242,6 +242,30 @@ if data is not None:
             for item in qual_data.get("challenges", []):
                 st.markdown(f'<div class="challenge-item">⚠ {item}</div>', unsafe_allow_html=True)
                 
+        # Add Qualitative Extraction Depth chart
+        st.markdown("---")
+        st.markdown("#### Qualitative Extraction Depth Analysis")
+        qual_counts = []
+        for model in summary.get("models_tested", []):
+            m_qual = benchmarks[model].get("strengths_challenges", {"strengths": [], "challenges": []})
+            qual_counts.append({
+                "Model": model,
+                "Strengths Extracted": len(m_qual.get("strengths", [])),
+                "Challenges Extracted": len(m_qual.get("challenges", []))
+            })
+        df_qual_counts = pd.DataFrame(qual_counts)
+        fig_qual_depth = go.Figure(data=[
+            go.Bar(name='Strengths Extracted', x=df_qual_counts['Model'], y=df_qual_counts['Strengths Extracted'], marker_color='#e6f4ea', marker_line_color='#137333', marker_line_width=1.5),
+            go.Bar(name='Challenges Extracted', x=df_qual_counts['Model'], y=df_qual_counts['Challenges Extracted'], marker_color='#fce8e6', marker_line_color='#c5221f', marker_line_width=1.5)
+        ])
+        fig_qual_depth.update_layout(
+            barmode='group',
+            title="Qualitative Extraction Depth: Unique Strengths vs. Challenges Extracted",
+            xaxis_title="Local Inference Architecture",
+            yaxis_title="Unique Insights Count"
+        )
+        st.plotly_chart(fig_qual_depth, use_container_width=True)
+        
         st.markdown("---")
         st.subheader("📖 Document Thematic Narrative Mapping")
         st.markdown("*Maps the distribution of core themes across PDF page coordinates to trace structural narrative focus.*")
@@ -446,6 +470,62 @@ if data is not None:
                 title="Latency vs. Verbosity Trade-off"
             )
             st.plotly_chart(fig_perf, use_container_width=True)
+            
+        st.markdown("---")
+        col_j3, col_j4 = st.columns(2)
+        
+        with col_j3:
+            st.markdown("#### Execution Latency Breakdown by Extraction Task")
+            latency_data = []
+            sub_tasks = [
+                ("Key Results", "key_results_latency"),
+                ("Chapter Summaries", "chapter_summaries_latency"),
+                ("Strengths & Challenges", "strengths_challenges_latency"),
+                ("Numerical Indicators", "numerical_indicators_latency"),
+                ("Demographic Trends", "demographic_trends_latency")
+            ]
+            for model in summary.get("models_tested", []):
+                m_metrics = benchmarks[model].get("metrics", {})
+                for task_label, task_key in sub_tasks:
+                    latency_data.append({
+                        "Model": model,
+                        "Extraction Task": task_label,
+                        "Latency (sec)": m_metrics.get(task_key) or 0
+                    })
+            df_latency_breakdown = pd.DataFrame(latency_data)
+            
+            fig_lat_breakdown = px.bar(
+                df_latency_breakdown,
+                x="Model",
+                y="Latency (sec)",
+                color="Extraction Task",
+                title="Cumulative Execution Time by Modular Task (lower is better)",
+                color_discrete_sequence=px.colors.qualitative.Pastel
+            )
+            fig_lat_breakdown.update_layout(xaxis_title="Local Inference Architecture", yaxis_title="Cumulative Time (Seconds)")
+            st.plotly_chart(fig_lat_breakdown, use_container_width=True)
+            
+        with col_j4:
+            st.markdown("#### Response Verbosity Comparison")
+            verb_data = []
+            for model in summary.get("models_tested", []):
+                m_metrics = benchmarks[model].get("metrics", {})
+                verb_data.append({
+                    "Model": model,
+                    "Word Count": m_metrics.get("verbosity_word_count") or 0
+                })
+            df_verb = pd.DataFrame(verb_data)
+            
+            fig_verb = px.bar(
+                df_verb,
+                x="Model",
+                y="Word Count",
+                color="Model",
+                title="Combined Output Length (Total Verbosity in Words)",
+                color_discrete_sequence=['#c5221f', '#1d70b8', '#137333']
+            )
+            fig_verb.update_layout(xaxis_title="Local Inference Architecture", yaxis_title="Combined Output Word Count", showlegend=False)
+            st.plotly_chart(fig_verb, use_container_width=True)
             
         st.markdown("---")
         st.subheader("Judge Detailed Critiques & Justifications")
