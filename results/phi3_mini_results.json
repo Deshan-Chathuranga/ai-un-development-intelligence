@@ -1,0 +1,75 @@
+{
+    "model_name": "phi3:mini",
+    "key_results": "- Social exclusion in Bosnia and Herzegovina is linked to post-conflict transition.\n- EU integration offers a path to align policy frameworks with international standards.\n- High economic insecurity and lack of jobs are major challenges.\n- Passive assistance systems need to reform into active inclusion programs.\n- Minority groups, returnees, and disabled are the most excluded.",
+    "chapter_summaries": {
+        "1": "Introduction to social inclusion definitions and path to Europe.",
+        "2": "HDI analysis and social exclusion indices for key groups.",
+        "3": "Post-conflict discrimination and institutional drivers of division.",
+        "4": "Crafting a policy framework for social inclusion in BiH.",
+        "5": "Economic exclusion, gender gaps, and labor market policies.",
+        "6": "Education access, lifecycle learning, and school segregation.",
+        "7": "Healthcare services, disparities, and policy orientations.",
+        "8": "Pensions, social assistance reforms, and gender aspects.",
+        "9": "Political participation, media, and civil society engagement.",
+        "10": "Concluding remarks and national strategy outlines."
+    },
+    "strengths_challenges": {
+        "strengths": [
+            "High enrollment in basic education",
+            "Committed to EU standard alignment",
+            "Active non-state actor participation"
+        ],
+        "challenges": [
+            "High levels of youth unemployment",
+            "Segregated school structures",
+            "Inefficient social transfers"
+        ]
+    },
+    "numerical_indicators": {
+        "hdi_value": 0.802,
+        "hdi_rank": 66,
+        "life_expectancy": 74.2,
+        "expected_schooling": 12.5,
+        "mean_schooling": 8.6,
+        "gni_per_capita": 7350.0,
+        "population": 3.8
+    },
+    "demographic_trends": {
+        "trends": [
+            {
+                "year": 1995,
+                "value": 0.645,
+                "indicator_name": "HDI Value"
+            },
+            {
+                "year": 2000,
+                "value": 0.71,
+                "indicator_name": "HDI Value"
+            },
+            {
+                "year": 2005,
+                "value": 0.785,
+                "indicator_name": "HDI Value"
+            },
+            {
+                "year": 2007,
+                "value": 0.802,
+                "indicator_name": "HDI Value"
+            }
+        ]
+    },
+    "metrics": {
+        "key_results_latency": 12.5,
+        "chapter_summaries_latency": 80.2,
+        "strengths_challenges_latency": 15.4,
+        "numerical_indicators_latency": 14.8,
+        "demographic_trends_latency": 19.6,
+        "total_latency": 98.4,
+        "verbosity_word_count": 420
+    },
+    "evaluation": {
+        "faithfulness_score": 4,
+        "relevance_score": 4,
+        "justification": "The model answered efficiently but introduced minor rounding discrepancies in the GNI per capita statistic and showed slight wordiness in chapters summaries."
+    }
+}

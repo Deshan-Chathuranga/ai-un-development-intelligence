@@ -1,0 +1,77 @@
+{
+    "model_name": "qwen2.5:3b",
+    "key_results": "- Post-conflict transition has left Bosnia and Herzegovina with deep-seated social exclusion challenges.\n- Aligning the national social inclusion policy framework with European Union integration is critical.\n- Unemployment and economic insecurity are the primary drivers of exclusion.\n- The social protection system requires a shift from passive cash transfers to active services.\n- Vulnerable populations like returnees and minorities require targeted policy support.",
+    "chapter_summaries": {
+        "1": "Reviews definitions of social exclusion and the path to EU integration.",
+        "2": "Presents HDI metrics and calculates the Social Exclusion Index for BiH.",
+        "3": "Details post-conflict discrimination and ethnic division structural drivers.",
+        "4": "Proposes a policy framework for social inclusion in BiH.",
+        "5": "Documents economic insecurity and labor market indicators.",
+        "6": "Focuses on educational inequalities and lifelong learning opportunities.",
+        "7": "Addresses healthcare disparities and health well-being concepts.",
+        "8": "Assesses social assistance and pension reforms in the country.",
+        "9": "Examines political processes, media, and civil society spaces.",
+        "10": "Summarizes policy recommendations for national strategy development."
+    },
+    "strengths_challenges": {
+        "strengths": [
+            "Basic literacy and schooling enrollment remains stable",
+            "Strong policy orientation toward European accession",
+            "Growth in local community-based organizations",
+            "Low absolute food poverty rates"
+        ],
+        "challenges": [
+            "High rates of youth and female labor market exclusion",
+            "Deep regional disparities in service access",
+            "Fragmented social welfare systems",
+            "Inefficient resource allocation in health and pensions"
+        ]
+    },
+    "numerical_indicators": {
+        "hdi_value": 0.803,
+        "hdi_rank": 66,
+        "life_expectancy": 74.4,
+        "expected_schooling": 12.3,
+        "mean_schooling": 8.7,
+        "gni_per_capita": 7280.0,
+        "population": 3.85
+    },
+    "demographic_trends": {
+        "trends": [
+            {
+                "year": 1995,
+                "value": 0.645,
+                "indicator_name": "HDI Value"
+            },
+            {
+                "year": 2000,
+                "value": 0.71,
+                "indicator_name": "HDI Value"
+            },
+            {
+                "year": 2005,
+                "value": 0.785,
+                "indicator_name": "HDI Value"
+            },
+            {
+                "year": 2007,
+                "value": 0.803,
+                "indicator_name": "HDI Value"
+            }
+        ]
+    },
+    "metrics": {
+        "key_results_latency": 12.5,
+        "chapter_summaries_latency": 80.2,
+        "strengths_challenges_latency": 15.4,
+        "numerical_indicators_latency": 14.8,
+        "demographic_trends_latency": 19.6,
+        "total_latency": 124.2,
+        "verbosity_word_count": 492
+    },
+    "evaluation": {
+        "faithfulness_score": 5,
+        "relevance_score": 4,
+        "justification": "Extracted numerical values were fully factual, but the key results output omitted minor qualitative challenges relating to minor displaced groups, resulting in a slightly lower relevance score."
+    }
+}
