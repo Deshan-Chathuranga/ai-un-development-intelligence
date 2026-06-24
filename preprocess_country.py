@@ -67,14 +67,11 @@ def main():
             with open(model_result_path, 'r', encoding='utf-8') as f:
                 benchmarks[model] = json.load(f)
         else:
-            print(f"Running benchmark for {model}...")
-            # We pass Chapter 1, 2, 3, 5, 6, 7, 8, 9, 10
-            # To speed up the pre-processing during runtime, let's limit chapter summarization to first 5 chapters
-            # But wait, let's do all chapters if possible, or limit to the first 4 for faster run.
-            # Actually, to make it completely complete, let's run all chapters. 
-            # If the chapter text is very long, it is already truncated to 12000 chars in llm_client.py.
+            # Choose a DIFFERENT model as the judge to satisfy the assignment requirement
+            judge_model = "qwen2.5:3b" if model == "llama3.2" else "llama3.2"
+            print(f"Running benchmark for {model} (evaluated by judge: {judge_model})...")
             try:
-                results = run_model_benchmark(model, vstore, chapter_texts, judge_model="llama3.2")
+                results = run_model_benchmark(model, vstore, chapter_texts, judge_model=judge_model)
                 benchmarks[model] = results
                 with open(model_result_path, 'w', encoding='utf-8') as f:
                     json.dump(results, f, indent=4, ensure_ascii=False)

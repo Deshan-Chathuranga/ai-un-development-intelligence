@@ -531,7 +531,9 @@ if data is not None:
         st.subheader("Judge Detailed Critiques & Justifications")
         for model in summary.get("models_tested", []):
             m_eval = bench_summary[model]
+            judge_model_name = "qwen2.5:3b" if model == "llama3.2" else "llama3.2"
             with st.expander(f"⚖️ Model: {model} — Faithfulness: {m_eval.get('faithfulness')}/5 | Relevance: {m_eval.get('relevance')}/5"):
+                st.markdown(f"**Evaluator Judge Model:** `{judge_model_name}`")
                 st.markdown(f"**Judge Justification:**")
                 st.write(m_eval.get("justification"))
 else:

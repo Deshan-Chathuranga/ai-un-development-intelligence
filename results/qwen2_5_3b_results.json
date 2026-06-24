@@ -70,8 +70,8 @@
         "verbosity_word_count": 492
     },
     "evaluation": {
-        "faithfulness_score": 5,
-        "relevance_score": 4,
-        "justification": "Extracted numerical values were fully factual, but the key results output omitted minor qualitative challenges relating to minor displaced groups, resulting in a slightly lower relevance score."
+        "faithfulness_score": 4,
+        "relevance_score": 5,
+        "justification": "The answer is generally faithful to the context, strictly backed by relevant information from the Human Development Reports. However, it lacks a clear summary of key results and main findings, which are crucial for understanding the report's overall impact. The answer also does not directly address all aspects of the user's question, such as development achievements and policy goals."
     }
 }

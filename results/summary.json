@@ -2615,9 +2615,9 @@
     ],
     "benchmark_summary": {
         "llama3.2": {
-            "faithfulness": 5,
-            "relevance": 4,
-            "justification": "The answer strictly adheres to the context, providing a clear and concise overview of the human development paradigm. However, it could benefit from more specific examples or data to support its claims, which might make it slightly less relevant.",
+            "faithfulness": 4,
+            "relevance": 5,
+            "justification": "The answer is faithful to the context as it captures key points such as the holistic nature of human development, the focus on people's welfare and well-being, the four basics, social inclusion, and the purpose of human development analyses. However, there are some minor omissions or slight misinterpretations that prevent a perfect score (e.g., 'human potentials' is not explicitly mentioned in the answer). The relevance score is 5 because all key results/findings directly address the user's question about important aspects of the Human Development Report.",
             "total_latency": 311.88803696632385,
             "verbosity": 1371,
             "indicators": {
@@ -2631,9 +2631,9 @@
             }
         },
         "qwen2.5:3b": {
-            "faithfulness": 5,
-            "relevance": 4,
-            "justification": "Extracted numerical values were fully factual, but the key results output omitted minor qualitative challenges relating to minor displaced groups, resulting in a slightly lower relevance score.",
+            "faithfulness": 4,
+            "relevance": 5,
+            "justification": "The answer is generally faithful to the context, strictly backed by relevant information from the Human Development Reports. However, it lacks a clear summary of key results and main findings, which are crucial for understanding the report's overall impact. The answer also does not directly address all aspects of the user's question, such as development achievements and policy goals.",
             "total_latency": 124.2,
             "verbosity": 492,
             "indicators": {
@@ -2648,8 +2648,8 @@
         },
         "phi3:mini": {
             "faithfulness": 4,
-            "relevance": 4,
-            "justification": "The model answered efficiently but introduced minor rounding discrepancies in the GNI per capita statistic and showed slight wordiness in chapters summaries.",
+            "relevance": 3,
+            "justification": "The answer contains some accurate information, such as the challenges of social exclusion in Bosnia and Herzegovina and the need for active inclusion programs. However, it lacks specificity and depth, failing to directly address the user's question about key results, main findings, development achievements, and policy goals. The answer also includes irrelevant statements, such as EU integration offering a path to align policy frameworks with international standards, which are not directly related to the human development report.",
             "total_latency": 98.4,
             "verbosity": 420,
             "indicators": {

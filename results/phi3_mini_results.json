@@ -69,7 +69,7 @@
     },
     "evaluation": {
         "faithfulness_score": 4,
-        "relevance_score": 4,
-        "justification": "The model answered efficiently but introduced minor rounding discrepancies in the GNI per capita statistic and showed slight wordiness in chapters summaries."
+        "relevance_score": 3,
+        "justification": "The answer contains some accurate information, such as the challenges of social exclusion in Bosnia and Herzegovina and the need for active inclusion programs. However, it lacks specificity and depth, failing to directly address the user's question about key results, main findings, development achievements, and policy goals. The answer also includes irrelevant statements, such as EU integration offering a path to align policy frameworks with international standards, which are not directly related to the human development report."
     }
 }
