@@ -479,6 +479,122 @@ def plot_verbosity_comparison(benchmarks, output_dir):
     plt.close()
     print(f"Saved: {out_path}")
 
+def plot_poverty_disparities(output_dir):
+    """Plot 11 (NEW): Poverty rates across entities and vulnerable groups in BiH."""
+    print("Generating Plot 11: Poverty disparities...")
+    categories = [
+        "Federation of BiH (FBiH)",
+        "National Average",
+        "Republika Srpska (RS)",
+        "Single Elderly (65+)",
+        "Two-member Elderly (65+)",
+        "Displaced Persons"
+    ]
+    poverty_rates = [15.0, 17.8, 21.0, 28.8, 36.1, 37.0]
+
+    plt.figure(figsize=(10, 6))
+    sns.set_theme(style="whitegrid")
+    
+    # Palette with gradient characteristics
+    colors = sns.color_palette("coolwarm", n_colors=len(categories))
+    
+    bars = plt.barh(categories, poverty_rates, color=colors, edgecolor="grey", height=0.6)
+    
+    for bar in bars:
+        width = bar.get_width()
+        plt.text(width + 1.0, bar.get_y() + bar.get_height()/2, 
+                 f"{width:.1f}%", 
+                 va='center', ha='left', fontsize=10, fontweight='bold', color='#333333')
+                 
+    plt.title("Poverty Rates by Entity & Vulnerable Group in BiH (2007)", fontsize=13, fontweight='bold', pad=15)
+    plt.xlabel("Poverty Headcount Rate (%)", fontsize=11, labelpad=10)
+    plt.ylabel("Population Group", fontsize=11)
+    plt.xlim(0, 45)
+    plt.tight_layout()
+    
+    out_path = os.path.join(output_dir, "poverty_rates_by_group.png")
+    plt.savefig(out_path, dpi=300, bbox_inches='tight')
+    plt.close()
+    print(f"Saved: {out_path}")
+
+def plot_hsei_disparities(output_dir):
+    """Plot 12 (NEW): Human Social Exclusion Index (HSEI-1) across regions and areas."""
+    print("Generating Plot 12: HSEI-1 disparities...")
+    categories = [
+        "Urban Population",
+        "Republika Srpska (RS)",
+        "National Average (HSEI-1)",
+        "Rural Population",
+        "Federation of BiH (FBiH)"
+    ]
+    exclusion_rates = [19.75, 20.01, 21.85, 23.57, 24.53]
+
+    plt.figure(figsize=(10, 5.5))
+    sns.set_theme(style="whitegrid")
+    
+    colors = sns.color_palette("magma", n_colors=len(categories))
+    
+    bars = plt.barh(categories, exclusion_rates, color=colors, edgecolor="grey", height=0.55)
+    
+    for bar in bars:
+        width = bar.get_width()
+        plt.text(width + 0.8, bar.get_y() + bar.get_height()/2, 
+                 f"{width:.2f}%", 
+                 va='center', ha='left', fontsize=10, fontweight='bold', color='#333333')
+                 
+    plt.title("Human Extreme Social Exclusion Index (HSEI-1) Disparities (2006)", fontsize=13, fontweight='bold', pad=15)
+    plt.xlabel("Extreme Social Exclusion Rate (%)", fontsize=11, labelpad=10)
+    plt.ylabel("Dimension / Region", fontsize=11)
+    plt.xlim(0, 30)
+    plt.tight_layout()
+    
+    out_path = os.path.join(output_dir, "hsei_social_exclusion.png")
+    plt.savefig(out_path, dpi=300, bbox_inches='tight')
+    plt.close()
+    print(f"Saved: {out_path}")
+
+def plot_roma_disparities(output_dir):
+    """Plot 13 (NEW): Economic disparities between Roma, Displaced and Majority populations."""
+    print("Generating Plot 13: Roma economic disparities...")
+    
+    groups = ["Roma", "Displaced / Refugees", "Nearby Majority"]
+    income_above_300 = [22.0, 47.0, 56.0]
+    permanent_jobs = [3.0, 18.0, 30.0]
+    
+    x = np.arange(len(groups))
+    width = 0.35
+    
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.set_theme(style="whitegrid")
+    
+    rects1 = ax.bar(x - width/2, income_above_300, width, label='Monthly Income > KM 300 (%)', color='#c5221f', edgecolor='grey', alpha=0.85)
+    rects2 = ax.bar(x + width/2, permanent_jobs, width, label='Permanent Employment Rate (%)', color='#1d70b8', edgecolor='grey', alpha=0.85)
+    
+    ax.set_ylabel('Percentage (%)', fontsize=11, labelpad=10)
+    ax.set_title('Socio-Economic Disparities: Roma vs. Displaced and Majority Populations', fontsize=13, fontweight='bold', pad=15)
+    ax.set_xticks(x)
+    ax.set_xticklabels(groups, fontsize=11, fontweight='bold')
+    ax.set_ylim(0, 70)
+    ax.legend(loc='upper left')
+    
+    def autolabel(rects):
+        for rect in rects:
+            height = rect.get_height()
+            ax.annotate(f'{height:.1f}%',
+                        xy=(rect.get_x() + rect.get_width() / 2, height),
+                        xytext=(0, 3),
+                        textcoords="offset points",
+                        ha='center', va='bottom', fontsize=9, fontweight='bold')
+                        
+    autolabel(rects1)
+    autolabel(rects2)
+    
+    plt.tight_layout()
+    out_path = os.path.join(output_dir, "roma_economic_disparity.png")
+    plt.savefig(out_path, dpi=300, bbox_inches='tight')
+    plt.close()
+    print(f"Saved: {out_path}")
+
 def main():
     ensure_cache()
     summary, benchmarks = load_data()
@@ -498,8 +614,11 @@ def main():
     plot_model_latency_breakdown(benchmarks, output_dir)
     plot_qualitative_depth(benchmarks, output_dir)
     plot_verbosity_comparison(benchmarks, output_dir)
+    plot_poverty_disparities(output_dir)
+    plot_hsei_disparities(output_dir)
+    plot_roma_disparities(output_dir)
     
-    print("\n[Success] All 10 report plots generated and saved successfully!")
+    print("\n[Success] All 13 report plots generated and saved successfully!")
     print(f"Plots directory content:")
     for f in sorted(os.listdir(output_dir)):
         if f.endswith('.png'):
@@ -507,3 +626,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

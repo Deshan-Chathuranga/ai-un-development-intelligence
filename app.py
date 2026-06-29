@@ -145,11 +145,24 @@ selected_models = st.sidebar.multiselect(
 if data is not None:
     st.sidebar.success("Successfully loaded preprocessed country report!")
     
+    # Let the user select the primary model to view its analysis outputs
+    st.sidebar.markdown("---")
+    st.sidebar.subheader("👁️ Analysis Viewer")
+    models_list = list(benchmarks.keys())
+    default_idx = models_list.index("qwen2.5:3b") if "qwen2.5:3b" in models_list else 0
+    primary_model = st.sidebar.selectbox(
+        "Select Model to View Analysis:",
+        options=models_list,
+        index=default_idx,
+        help="Switch between models to view and compare their extracted summaries, qualitative analyses, radar profiles, and demographic trends."
+    )
+    
     # ------------------ MAIN TABS ------------------
-    tab_summary, tab_themes, tab_indicators, tab_benchmarks = st.tabs([
+    tab_summary, tab_themes, tab_indicators, tab_disparities, tab_benchmarks = st.tabs([
         "📋 Summary & Chapters", 
         "📊 Thematic & Sentiment Analysis", 
         "📈 Development Indicators", 
+        "🔍 Social Exclusion & Disparities",
         "⚖️ Model Benchmarking (Judge)"
     ])
     
@@ -157,8 +170,8 @@ if data is not None:
     with tab_summary:
         st.subheader("Executive Development Summary")
         
-        # Display the output from the primary model (default to llama3.2 if available, else first)
-        primary_model = "llama3.2" if "llama3.2" in benchmarks else list(benchmarks.keys())[0]
+        # Display the output from the selected model (from sidebar viewer)
+        st.info(f"Showing analysis extracted by model: **{primary_model}**")
         
         col1, col2 = st.columns([1, 1])
         with col1:
@@ -381,6 +394,12 @@ if data is not None:
             trend_data = benchmarks[primary_model].get("demographic_trends", {}).get("trends", [])
             if trend_data:
                 df_trend = pd.DataFrame(trend_data)
+                
+                # Sort values to ensure correct chronological line rendering
+                df_trend = df_trend.sort_values(by=["indicator_name", "year"])
+                # Remove duplicate years for the same indicator to avoid vertical stacking line spikes
+                df_trend = df_trend.drop_duplicates(subset=["indicator_name", "year"], keep="first")
+                
                 fig_trend = px.line(
                     df_trend, 
                     x="year", 
@@ -424,7 +443,111 @@ if data is not None:
         fig_variance.update_layout(yaxis_title=selected_ind, showlegend=False)
         st.plotly_chart(fig_variance, use_container_width=True)
 
-    # --- TAB 4: MODEL BENCHMARKING (JUDGE) ---
+    # --- TAB 4: SOCIAL EXCLUSION & DISPARITIES ---
+    with tab_disparities:
+        st.subheader("🔍 Socio-Economic Disparities & Social Exclusion Indices")
+        st.markdown(
+            "*Detailed diagnostics of poverty, extreme social exclusion (HSEI-1), and group-specific marginalization "
+            "extracted from the 2007 National Human Development Report.*"
+        )
+        
+        col_disp1, col_disp2 = st.columns(2)
+        
+        with col_disp1:
+            st.markdown("#### Poverty Rates by Entity and Group")
+            # FBiH (15%), National (17.8%), RS (21%), Single Elderly (28.8%), Two-member Elderly (36.1%), Displaced Persons (37%)
+            df_poverty = pd.DataFrame({
+                "Group": [
+                    "Federation of BiH (FBiH)", 
+                    "National Average", 
+                    "Republika Srpska (RS)", 
+                    "Single Elderly (65+)", 
+                    "Two-member Elderly (65+)", 
+                    "Displaced Persons"
+                ],
+                "Poverty Rate (%)": [15.0, 17.8, 21.0, 28.8, 36.1, 37.0]
+            }).sort_values("Poverty Rate (%)")
+            
+            fig_poverty = px.bar(
+                df_poverty,
+                x="Poverty Rate (%)",
+                y="Group",
+                orientation="h",
+                text="Poverty Rate (%)",
+                color="Poverty Rate (%)",
+                color_continuous_scale=px.colors.sequential.Reds,
+                title="Poverty Headcount Rate (%) by Sub-population"
+            )
+            fig_poverty.update_traces(texttemplate='%{text:.1f}%', textposition='outside')
+            fig_poverty.update_layout(xaxis=dict(range=[0, 45]))
+            st.plotly_chart(fig_poverty, use_container_width=True)
+            
+        with col_disp2:
+            st.markdown("#### Human Extreme Social Exclusion (HSEI-1)")
+            # Urban: 19.75%, RS: 20.01%, National: 21.85%, Rural: 23.57%, FBiH: 24.53%
+            df_hsei = pd.DataFrame({
+                "Region / Area": [
+                    "Urban Population", 
+                    "Republika Srpska (RS)", 
+                    "National Average", 
+                    "Rural Population", 
+                    "Federation of BiH (FBiH)"
+                ],
+                "Exclusion Rate (%)": [19.75, 20.01, 21.85, 23.57, 24.53]
+            }).sort_values("Exclusion Rate (%)")
+            
+            fig_hsei = px.bar(
+                df_hsei,
+                x="Exclusion Rate (%)",
+                y="Region / Area",
+                orientation="h",
+                text="Exclusion Rate (%)",
+                color="Exclusion Rate (%)",
+                color_continuous_scale=px.colors.sequential.Purples,
+                title="Extreme Social Exclusion (HSEI-1) Breakdown (2006)"
+            )
+            fig_hsei.update_traces(texttemplate='%{text:.2f}%', textposition='outside')
+            fig_hsei.update_layout(xaxis=dict(range=[0, 30]))
+            st.plotly_chart(fig_hsei, use_container_width=True)
+            
+        st.markdown("---")
+        st.markdown("#### Economic Disparities: Roma, Displaced Persons, and Nearby Majority Populations")
+        st.markdown(
+            "*A comparison of key economic indicators demonstrating structural discrimination and exclusion of the Roma "
+            "relative to other vulnerable and majority groups in the same localities.*"
+        )
+        
+        # Roma vs Displaced/Refugees vs Nearby Majority
+        # Income > KM 300: Roma (22%), Displaced (47%), Majority (56%)
+        # Permanent Employment Rate: Roma (3%), Displaced (18%), Majority (30%)
+        df_roma = pd.DataFrame({
+            "Group": ["Roma", "Roma", "Displaced / Refugees", "Displaced / Refugees", "Nearby Majority", "Nearby Majority"],
+            "Indicator": [
+                "Monthly Income > KM 300", "Permanent Employment Rate", 
+                "Monthly Income > KM 300", "Permanent Employment Rate",
+                "Monthly Income > KM 300", "Permanent Employment Rate"
+            ],
+            "Percentage (%)": [22.0, 3.0, 47.0, 18.0, 56.0, 30.0]
+        })
+        
+        fig_roma = px.bar(
+            df_roma,
+            x="Group",
+            y="Percentage (%)",
+            color="Indicator",
+            barmode="group",
+            text="Percentage (%)",
+            color_discrete_map={
+                "Monthly Income > KM 300": "#c5221f",
+                "Permanent Employment Rate": "#1d70b8"
+            },
+            title="Economic Opportunities and Income Levels by Group"
+        )
+        fig_roma.update_traces(texttemplate='%{text:.1f}%', textposition='outside')
+        fig_roma.update_layout(yaxis=dict(range=[0, 70]))
+        st.plotly_chart(fig_roma, use_container_width=True)
+
+    # --- TAB 5: MODEL BENCHMARKING (JUDGE) ---
     with tab_benchmarks:
         st.subheader("Cross-LLM Behavior Analysis")
         
