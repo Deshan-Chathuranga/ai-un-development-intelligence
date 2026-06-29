@@ -149,7 +149,7 @@ if data is not None:
     st.sidebar.markdown("---")
     st.sidebar.subheader("👁️ Analysis Viewer")
     models_list = list(benchmarks.keys())
-    default_idx = models_list.index("qwen2.5:3b") if "qwen2.5:3b" in models_list else 0
+    default_idx = models_list.index("llama3.2") if "llama3.2" in models_list else 0
     primary_model = st.sidebar.selectbox(
         "Select Model to View Analysis:",
         options=models_list,
