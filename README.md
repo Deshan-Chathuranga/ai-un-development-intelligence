@@ -11,11 +11,11 @@ Below is the conceptual flow of the pipeline, showing how documents are processe
 ```mermaid
 graph TD
     %% Styling
-    classDef source fill:#f9f9f9,stroke:#333,stroke-width:2px;
-    classDef process fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
-    classDef storage fill:#efebe9,stroke:#5d4037,stroke-width:2px;
-    classDef llm fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
-    classDef ui fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    classDef source fill:#f9f9f9,stroke:#333333,stroke-width:2px,color:#111111;
+    classDef process fill:#e1f5fe,stroke:#0288d1,stroke-width:2px,color:#01579b;
+    classDef storage fill:#efebe9,stroke:#5d4037,stroke-width:2px,color:#3e2723;
+    classDef llm fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20;
+    classDef ui fill:#fff3e0,stroke:#ef6c00,stroke-width:2px,color:#e65100;
     
     %% Ingestion Pipeline
     subgraph Ingestion ["1. Document Ingestion Pipeline"]
