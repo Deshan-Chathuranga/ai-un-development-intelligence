@@ -24,7 +24,7 @@ from src.evaluator import run_model_benchmark, evaluate_extracted_data
 
 # Page config
 st.set_page_config(
-    page_title="UN HDR Intelligence & Evaluation Dashboard",
+    page_title="Bosnia and Herzegovina (2007) NHDR AI Analyzer",
     page_icon="🇺🇳",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -112,8 +112,8 @@ def load_cached_results():
 data = load_cached_results()
 
 # App Layout
-st.markdown('<h1 class="main-title">AI-Powered UN Development Intelligence</h1>', unsafe_allow_html=True)
-st.markdown('<p class="sub-title">Static cognitive analysis dashboard & local LLM thematic insights</p>', unsafe_allow_html=True)
+st.markdown('<h1 class="main-title">Bosnia and Herzegovina (2007) NHDR AI Analyzer</h1>', unsafe_allow_html=True)
+st.markdown('<p class="sub-title">Cognitive analysis dashboard & local LLM thematic insights</p>', unsafe_allow_html=True)
 
 if data is not None:
     summary = data["summary"]
